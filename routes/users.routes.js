@@ -1,8 +1,18 @@
 const {Router} = require('express');
 const router = new Router();
-const mongoose = require ('mongoose');
+const usuarioController = require('../controllers/userController')
+const {check} = require('express-validator')
 
-const User = require('../models/User.model');
+
+
+router.post('/signup', 
+[
+    check("nombre", "El nombre es obligatorio").not().isEmpty(),
+    check('email', 'Agrega un email válido').isEmail(),
+    check('password', 'La contraseña debe tener al menos 6 caracteres').isLength({min: 6})
+],
+usuarioController.crearUsuario)
+
 
 router.get('/profile', (req, res, next) => {
   console.log(req.session.currentUser)

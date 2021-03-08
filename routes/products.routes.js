@@ -3,7 +3,7 @@ const router = new Router();
 const mongoose = require ('mongoose');
 const Product = require('../models/Product.model');
 
-router.get('/productos', async (req, res, next) => {
+router.get('/productos', (req, res, next) => {
   
    Product.find({}).sort({name: 1})
   .then((products) => {

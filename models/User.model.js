@@ -4,8 +4,7 @@ const userSchema = new Schema({
   name: {
     type: String,
     trim: true,
-    required: [true, 'El campo nombre de usuario debe ser llenado'],
-    unique: true 
+    required: [true, 'El campo nombre de usuario debe ser llenado']
   },
   email: {
     type: String, 
@@ -20,7 +19,7 @@ const userSchema = new Schema({
     required: [true, 'El campo contraseña debe ser llenado']
   },
   phoneNumber: Number,
-  address: String
+  orders: [{type: Schema.Types.ObjectId, ref: 'Order'}]
 },
   {
   timestamps: true
