@@ -3,15 +3,10 @@ const router = new Router();
 const mongoose = require ('mongoose');
 const Product = require('../models/Product.model');
 
-router.get('/productos', (req, res, next) => {
+router.get('/productos', async (req, res, next) => {
   
-   Product.find({}).sort({name: 1})
-  .then((products) => {
-    res.json({products})
-  })
-  .catch(error => {
-    next(error)
-  }) 
+  const products = await Product.find({}).sort({name: 1})
+  res.status(200).json({products})
 })
 
 module.exports = router

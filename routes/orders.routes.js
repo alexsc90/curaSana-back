@@ -1,47 +1,33 @@
 const {Router} = require('express');
 const router = new Router();
-const mongoose = require ('mongoose');
-const Order = require('../models/Order.model');
+const orderController = require('../controllers/orderController')
+const auth = require('../middleware/auth')
+const {check} = require('express-validator')
 
-router.get('/pedidos', (req, res, next) => {
-  Order.find({})
-  .then((orders) => {
-    res.json({orders})
-  })
-  .catch(error => {
-    next(error)
-  })
-});
+router.get('/pedidos', 
+  auth,
+  orderController.allOrders
+);
 
-router.post('/pedidos/crear', (req, res, next) => {
-  const {products, total} = req.body
+router.post('/pedidos',
+  auth,
+  [
+    check('products', 'Agrega productos para realizar el pedido').not().isEmpty()
+  ], 
+  orderController.createOrder
+);
 
-  Order.create({
-    products, total
-  }).then((order) => {
-      res.json(order)
-  }).catch((error) => {
-    res.json({errorMessage: 'Intenta nuevamente'})
-  })
-});
+router.put('/pedidos/:id', 
+  auth,
+  [
+  check('products', 'Agrega productos para realizar el pedido').not().isEmpty()
+  ], 
+  orderController.updateOrder
+);
 
-router.patch('/pedidos/:id/actualizar', (req, res, next) => {
-  const {id} = req.params
-  const{products, total} = req.body
-
-  Order.findByIdAndUpdate(id, {products, total}, {new: true})
-  .then((order) => {
-    res.json(order)
-  }).catch(error => next(error))
-});
-
-router.delete('/pedidos/:id/eliminar', (req, res, next) => {
-  const {id} = req.params
-
-  Order.findByIdAndDelete(id)
-  .then(() => {
-    res.json({message: 'orden eliminada'})
-  }).catch(error => next(error))
-});
+router.delete('/pedidos/:id',
+  auth,
+  orderController.deleteOrder
+);
 
 module.exports = router

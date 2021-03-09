@@ -18,9 +18,4 @@ router.get('/login',
     authController.usuarioAutenticado 
 )
 
-router.post('/logout', (req, res) => {
-  req.session.destroy()
-  res.json({message: 'Has finalizado sesión.'})
-})
-
-module.exports = router
+module.exports = router 

@@ -11,10 +11,6 @@ exports.crearUsuario = async (req, res) => {
     return res.status(400).json({errores: errores.array()})
   }
 
-  if(!regex.test(password)) {
-    return res.status(500).json({errorMessage: 'La contraseña debe contener al menos 6 chars, un número, una mayúscula y una minúscula.'})
-  }
-
   const {name, email, password, phoneNumber} = req.body
 
   try {
@@ -48,5 +44,68 @@ exports.crearUsuario = async (req, res) => {
   } catch(error) {
     console.log(error)
     res.status(400).send('Hubo un error')
+  }
+}
+
+exports.getProfile = async (req, res) => {
+  try {
+    
+    const profile = await User.findById(req.params.id).populate('orders')
+
+    if(!profile) {
+    return res.status(404).json({msg: 'Usuario no encontrado'})
+    }
+
+    res.status(200).json({profile})
+  
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+exports.updateProfile = async (req, res) => {
+  const errores = validationResult(req)
+  if(!errores.isEmpty()) {
+    return res.status(400).json({erores: errores.array()})
+  }
+
+  const {name, email, phoneNumber} = req.body
+  const newProfile = {}
+
+  if(name && email) {
+    newProfile.name = name
+    newProfile.email = email
+    newProfile.phoneNumber = phoneNumber
+  }
+
+  try {
+    let profile = await User.findById(req.params.id)
+
+    if(!profile) {
+      return res.status(400).json({msg: 'Usuario no encontrado'})
+    }
+
+    profile = await User.findByIdAndUpdate({_id: req.params.id.toString()}, {$set: newProfile}, {new: true} )
+    res.json({profile})
+
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+exports.deleteProfile = async (req, res) => {
+  try {
+    const profile = await User.findById(req.params.id)
+
+    if(!profile) {
+      return res.status(404).json({msg: 'Usuario no encontrado'})
+    }
+
+    await User.findOneAndRemove({_id: req.params.id})
+
+    res.json({msg: 'Usuario eliminado:', profile})
+  } catch(error) {
+    console.log(error)
+    res.status(500).send('Error en el servidor')
   }
 }
