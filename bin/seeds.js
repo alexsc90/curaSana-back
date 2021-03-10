@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
 const Product = require('../models/Product.model')
+const MONGODB_URI = process.env.MONGODB_URI
 
 mongoose
-  .connect('mongodb://localhost/backend',{
+  .connect(MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
