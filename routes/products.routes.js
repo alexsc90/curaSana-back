@@ -9,4 +9,10 @@ router.get('/productos', async (req, res, next) => {
   res.status(200).json({products})
 })
 
+router.get('/productos/:id', async (req, res, next) => {
+  const id = req.params.id
+  const product = await Product.findById(id)
+  res.json(product)
+})
+
 module.exports = router
