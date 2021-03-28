@@ -17,6 +17,11 @@ router.post('/pedidos',
   orderController.createOrder
 );
 
+router.get('/pedidos/:id',
+  auth,
+  orderController.orderDetails
+);
+
 router.put('/pedidos/:id', 
   auth,
   [

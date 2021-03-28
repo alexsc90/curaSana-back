@@ -32,6 +32,12 @@ exports.createOrder = async (req, res) => {
 
 }
 
+exports.orderDetails = async (req,res) => {
+  const id = req.params.id
+  const order = await Order.findById(id).populate('user')
+  res.json(order)
+}
+
 exports.updateOrder = async (req, res) => {
   const errores = validationResult(req)
   if(!errores.isEmpty()) {
