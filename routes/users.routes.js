@@ -14,6 +14,11 @@ router.post('/signup',
 ],
 usuarioController.crearUsuario)
 
+router.put('/profile/edit',
+  auth,
+  usuarioController.editProfile
+)
+
 
 router.get('/profile/:id', 
   auth,

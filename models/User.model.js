@@ -19,6 +19,7 @@ const userSchema = new Schema({
     required: [true, 'El campo contraseña debe ser llenado']
   },
   phoneNumber: Number,
+  checkout: Array,
   orders: [{type: Schema.Types.ObjectId, ref: 'Order'}]
 },
   {

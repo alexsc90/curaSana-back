@@ -93,6 +93,16 @@ exports.updateProfile = async (req, res) => {
   }
 }
 
+exports.editProfile = async (req, res) => {
+  const {id} = req.user
+  try {
+    const profile = await User.findByIdAndUpdate(id, {$push: {checkout: req.body}}, {new: true})
+    res.json({profile})
+  } catch(error) {
+    console.log(error)
+  }
+}
+
 exports.deleteProfile = async (req, res) => {
   try {
     const profile = await User.findById(req.params.id)
