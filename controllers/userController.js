@@ -50,7 +50,7 @@ exports.crearUsuario = async (req, res) => {
 exports.getProfile = async (req, res) => {
   try {
     
-    const profile = await User.findById(req.params.id).populate('orders')
+    const profile = await User.findById(req.usuario.id).populate('orders')
 
     if(!profile) {
     return res.status(404).json({msg: 'Usuario no encontrado'})
