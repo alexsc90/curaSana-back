@@ -94,7 +94,7 @@ exports.updateProfile = async (req, res) => {
 }
 
 exports.editProfile = async (req, res) => {
-  const {id} = req.user
+  const id = req.usuario.id
   try {
     const profile = await User.findByIdAndUpdate(id, {$push: {checkout: req.body}}, {new: true})
     res.json({profile})
