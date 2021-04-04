@@ -8,7 +8,15 @@ exports.allOrders = async (req, res) => {
 }
 
 exports.createOrder = async (req, res) => {
-  const errores = validationResult(req)
+
+  const {products, total, usuario} = req.body
+
+  const order = await Order.create({
+    products, 
+    total,
+    user: usuario._id
+  })
+  /* const errores = validationResult(req)
   if(!errores.isEmpty()){
     return res.status(400).json({errores: errores.array()})
   }
@@ -28,7 +36,7 @@ exports.createOrder = async (req, res) => {
   } catch(error) {
     console.log(error)
     res.status(500).send('Hubo un error')
-  }
+  } */
 
 }
 

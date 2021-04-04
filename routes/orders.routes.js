@@ -10,7 +10,7 @@ router.get('/pedidos',
 );
 
 router.post('/pedidos',
-  auth,
+  /* auth, */
   /* [
     check('products', 'Agrega productos para realizar el pedido').not().isEmpty()
   ],  */
