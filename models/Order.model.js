@@ -7,7 +7,7 @@ const orderSchema = new Schema({
   user: {type: Schema.Types.ObjectId, ref: 'User'}
 },
 {
-  timeStamps: true
+  timestamps: true
 }
 )
 
