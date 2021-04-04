@@ -5,7 +5,7 @@ const auth = require('../middleware/auth')
 /* const {check} = require('express-validator') */
 
 router.get('/pedidos', 
-  auth,
+ /*  auth, */
   orderController.allOrders
 );
 
