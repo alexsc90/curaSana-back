@@ -16,6 +16,10 @@ exports.createOrder = async (req, res) => {
     total,
     user: usuario._id
   })
+
+  const usuarioActualizado = await User.findByIdAndUpdate(req.usuario.id, {$addToSet: {orders: order._id}}, {new: true}).populate('orders')
+
+
   /* const errores = validationResult(req)
   if(!errores.isEmpty()){
     return res.status(400).json({errores: errores.array()})
