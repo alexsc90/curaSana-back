@@ -18,7 +18,7 @@ exports.createOrder = async (req, res) => {
 
     order.user = req.usuario.id
 
-    order.save()
+    await order.save()
 
     const usuarioActualizado = await User.findByIdAndUpdate(req.usuario.id, {$addToSet: {orders: order._id}}, {new: true}).populate('orders')
     console.log(usuarioActualizado)
