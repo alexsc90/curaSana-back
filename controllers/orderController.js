@@ -56,14 +56,13 @@ exports.updateOrder = async (req, res) => {
     return res.status(400).json({erores: errores.array()})
   }
   
-  const{products, total, shippingAddress} = req.body
+  const{products, total} = req.body
 
   const newOrder = {}
 
   if(products) {
     newOrder.products = products
     newOrder.total = total
-    newOrder.shippingAddress = shippingAddress
   }
 
   try {
