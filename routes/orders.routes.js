@@ -4,11 +4,6 @@ const orderController = require('../controllers/orderController')
 const auth = require('../middleware/auth')
 /* const {check} = require('express-validator') */
 
-router.get('/pedidos', 
- /*  auth, */
-  orderController.allOrders
-);
-
 router.post('/pedidos',
   /* auth, */
   /* [
@@ -17,8 +12,8 @@ router.post('/pedidos',
   orderController.createOrder
 );
 
-router.get('/pedidos/:id',
-  auth,
+router.get('/pedidos',
+ /*  auth, */
   orderController.orderDetails
 );
 

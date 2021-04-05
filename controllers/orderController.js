@@ -3,7 +3,7 @@ const User = require('../models/User.model')
 const {validationResult} = require('express-validator')
 
 exports.allOrders = async (req, res) => {
-  const orders = await Order.find({user}).sort({createdAt: -1}).populate('user')
+  const orders = await Order.find({user: req.usuario.id}).sort({createdAt: -1}).populate('user')
   res.json({orders})
 }
 
