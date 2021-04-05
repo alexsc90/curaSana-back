@@ -4,10 +4,10 @@ const orderController = require('../controllers/orderController')
 const auth = require('../middleware/auth')
 /* const {check} = require('express-validator') */
 
-/* router.get('/pedidos', 
-  auth,
+router.get('/pedidos', 
+ /*  auth, */
   orderController.allOrders
-); */
+);
 
 router.post('/pedidos',
   /* auth, */
@@ -15,10 +15,6 @@ router.post('/pedidos',
     check('products', 'Agrega productos para realizar el pedido').not().isEmpty()
   ],  */
   orderController.createOrder
-);
-
-router.get('/pedidos/:user', 
-  orderController.allOrders
 );
 
 router.get('/pedidos/:id',
