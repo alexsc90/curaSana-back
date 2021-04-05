@@ -31,7 +31,7 @@ router.put('/pedidos/:id',
 );
 
 router.delete('/pedidos/:id',
-  auth,
+ /*  auth, */
   orderController.deleteOrder
 );
 

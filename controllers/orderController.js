@@ -19,7 +19,6 @@ exports.createOrder = async (req, res) => {
 
   const usuarioActualizado = await User.findByIdAndUpdate(usuario._id, {$addToSet: {orders: order._id}}, {new: true}).populate('orders')
 
-
 }
 
 exports.orderDetails = async (req,res) => {
@@ -64,7 +63,8 @@ exports.updateOrder = async (req, res) => {
 
 exports.deleteOrder = async (req, res) => {
 
-  try {
+  const id = req.params.id
+  /* try {
   const order = await Order.findById(req.params.id)
 
   if(!order) {
@@ -73,13 +73,14 @@ exports.deleteOrder = async (req, res) => {
 
   if(order.user.toString() !== req.usuario.id){
     return res.status(401).json({msg: 'Usuario no autorizado'})
-  }
+  } */
 
-  await Order.findOneAndRemove({_id: req.params.id})
+  const deleted= await Order.findByIdAndRemove(id)
+  res.json(deleted)
 
-  res.json({msg: 'Pedido elimindado:', order})
+  /* res.json({msg: 'Pedido elimindado:', order})
   } catch(error) {
     console.log(error)
     res.status(500).send('Error en el servidor')
-  }
+  } */
 }
