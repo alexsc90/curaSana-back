@@ -3,7 +3,7 @@ const User = require('../models/User.model')
 const {validationResult} = require('express-validator')
 
 exports.allOrders = async (req, res) => {
-  const orders = await Order.find({user: usuario._id}).sort({createdAt: -1})
+  const orders = await Order.find({}).sort({createdAt: -1})
   res.json(orders)
 }
 
@@ -19,28 +19,6 @@ exports.createOrder = async (req, res) => {
 
   const usuarioActualizado = await User.findByIdAndUpdate(usuario._id, {$addToSet: {orders: order._id}}, {new: true}).populate('orders')
 
-
-  /* const errores = validationResult(req)
-  if(!errores.isEmpty()){
-    return res.status(400).json({errores: errores.array()})
-  }
-
-  try{
-    const order = new Order(req.body)
-
-    order.user = req.usuario.id
-
-    await order.save()
-
-    const usuarioActualizado = await User.findByIdAndUpdate(req.usuario.id, {$addToSet: {orders: order._id}}, {new: true}).populate('orders')
-    console.log(usuarioActualizado)
-    
-    res.json(order)
-
-  } catch(error) {
-    console.log(error)
-    res.status(500).send('Hubo un error')
-  } */
 
 }
 
