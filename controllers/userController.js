@@ -69,13 +69,14 @@ exports.updateProfile = async (req, res) => {
     return res.status(400).json({erores: errores.array()})
   }
 
-  const {name, email, phoneNumber} = req.body
+  const {name, email, phoneNumber, shippingAddress} = req.body
   const newProfile = {}
 
   if(name && email) {
     newProfile.name = name
     newProfile.email = email
     newProfile.phoneNumber = phoneNumber
+    newProfile.shippingAddress = shippingAddress
   }
 
   try {
